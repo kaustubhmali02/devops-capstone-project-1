@@ -3,7 +3,7 @@
   become: true
   name: Installing required (Java) softwares in all machines
   tasks:
-  
+
     - name: Installing Java
       ansible.builtin.apt:
         name: openjdk-8-jdk
@@ -49,3 +49,8 @@
         name: nginx
         enabled: yes
         state: started
+
+    - name: Creates directory "/var/www/html"
+      ansible.builtin.command:
+      creates:
+        path: /var/www/html
