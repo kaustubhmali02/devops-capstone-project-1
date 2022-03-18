@@ -18,7 +18,6 @@
     
     - name: Executing jenkins-script to the remote server
       ansible.builtin.command:
-        name: Executing script
         cmd: /bin/sh /tmp/jenkins/jenkins-install.sh
 
     - name: Enabling jenkins service
