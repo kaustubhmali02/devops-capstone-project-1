@@ -21,6 +21,3 @@
          name: jenkins
          enable: yes
          state: started
-         
-
-
