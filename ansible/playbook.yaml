@@ -1,14 +1,20 @@
 ---
-- hosts: jenkins_master
+- hosts: servers
   become: true
-  name: Installing Java and Jenkins on jenkins-server
+  name: Installing required (Java) softwares in all machines
   tasks:
-
+  
     - name: Installing Java
       ansible.builtin.apt:
         name: openjdk-8-jdk
         state: latest
         install_recommends: yes
+
+
+- hosts: jenkins_master
+  become: true
+  name: Installing Jenkins on jenkins-server
+  tasks:
 
     - name: Copying the jenkins-script to the remote server
       ansible.builtin.copy:
@@ -23,5 +29,23 @@
     - name: Enabling jenkins service
       ansible.builtin.service:
         name: jenkins
+        enabled: yes
+        state: started
+
+
+- hosts: worker_nodes
+  become: true
+  name: Installing required (Nginx) softwares in worker_nodes
+  tasks:
+
+    - name: Installing Nginx softwares
+      ansible.builtin.apt:
+        name: nginx
+        state: latest
+        install_recommends: yes
+
+    - name: Enabling nginx service
+      ansible.builtin.service:
+        name: nginx
         enabled: yes
         state: started
