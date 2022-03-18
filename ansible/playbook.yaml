@@ -51,5 +51,7 @@
         state: started
 
     - name: Creates directory "/var/www/html"
-      ansible.builtin.command:
-      creates: /var/www/html 
+      ansible.builtin.file:
+        path: /var/www/html
+        state: directory
+        mode: 0777 
