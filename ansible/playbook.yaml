@@ -1,5 +1,5 @@
 ---
-- hosts: jenkins-master
+- hosts: jenkins_master
   become: true
   name: Installing Java and Jenkins on jenkins-server
   tasks:
