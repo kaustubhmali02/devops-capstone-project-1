@@ -9,16 +9,20 @@
         name: openjdk-8-jdk
         state: latest
         install_recommends: yes
-        
-    - name: Installing Jenkins Via Script
+
+    - name: Copying the jenkins-script to the remote server
       ansible.builtin.copy:
-        name: Copying the jenkins-script to the remote server
+        name: Copying the script
         src: ansible/jenkins-install.sh
         dest: /tmp/jenkins
         mode: 0777
+    
+    - name: Executing jenkins-script to the remote server
       ansible.builtin.command:
-        name: Executing jenkins-script to the remote server
+        name: Executing script
         cmd: /bin/sh /tmp/jenkins/jenkins-install.sh
+
+    - name: Enabling jenkins service
       ansible.builtin.service:
         name: jenkins
         enable: yes
