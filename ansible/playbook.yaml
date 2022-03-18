@@ -3,11 +3,13 @@
   become: true
   name: Installing Java and Jenkins on jenkins-server
   tasks:
+
     - name: Installing Java
       ansible.builtin.apt:
         name: openjdk-8-jdk
         state: latest
         install_recommends: yes
+        
     - name: Installing Jenkins Via Script
       ansible.builtin.copy:
         name: Copying the jenkins-script to the remote server
