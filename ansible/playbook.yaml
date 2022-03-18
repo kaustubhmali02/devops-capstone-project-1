@@ -52,5 +52,4 @@
 
     - name: Creates directory "/var/www/html"
       ansible.builtin.command:
-      creates:
-        path: /var/www/html
+      creates: /var/www/html 
