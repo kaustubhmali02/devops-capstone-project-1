@@ -22,6 +22,6 @@
 
     - name: Enabling jenkins service
       ansible.builtin.service:
-        name: jenkins
+        name: jenkins.service
         enable: yes
         state: started
