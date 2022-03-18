@@ -11,7 +11,7 @@
      - name: Installing Jenkins Via Script
        ansible.builtin.copy:
          name: Copying the jenkins-script to the remote server
-         src: jenkins-install.sh
+         src: ansible/jenkins-install.sh
          dest: /tmp/jenkins
          mode: 0777
        ansible.builtin.command:
