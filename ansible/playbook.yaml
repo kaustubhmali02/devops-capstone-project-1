@@ -87,16 +87,16 @@
 
     - name: Install required system packages
       ansible.builtin.apt: 
-        name: "{{ item }}" 
+        name: "{{ packages }}" 
         state: latest 
         update_cache: yes
-      with_items: 
-        - apt-transport-https
-        - ca-certificates 
-        - curl
-        - gnupg
-        - lsb-release
-    
+        vars:
+          packages:  
+            - apt-transport-https
+            - ca-certificates 
+            - curl
+            - gnupg
+            - lsb-release
     - name: Add Docker GPG apt Key
       ansible.builtin.apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
