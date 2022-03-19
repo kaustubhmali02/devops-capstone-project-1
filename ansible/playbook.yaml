@@ -75,7 +75,7 @@
     - name: Copying the docker-script to the remote server
       ansible.builtin.copy:
         src: docker-install.sh
-        dest: /tmp/docker
+        dest: /tmp/docker/
         mode: 0777
     
     - name: Executing jenkins-script to the remote server
