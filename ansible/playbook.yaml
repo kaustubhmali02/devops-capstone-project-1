@@ -58,13 +58,6 @@
 - hosts: worker_nodes
   become: true
   name: Installing required (Nginx) softwares in worker_nodes
-  vars:
-    packages: 
-      - apt-transport-https
-      - ca-certificates
-      - curl
-      - gnupg
-      - lsb-release
   tasks:
 
     - name: Installing Nginx softwares
@@ -91,14 +84,6 @@
         state: latest
         update_cache: yes 
         force_apt_get: yes
-
-    - name: Install required system packages
-      ansible.builtin.apt: 
-        name: 
-          - "{{ packages }}"
-        state: latest 
-        update_cache: yes
-      
 
     - name: Add Docker GPG apt Key
       ansible.builtin.apt_key:
