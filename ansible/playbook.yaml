@@ -126,10 +126,8 @@
         owner: jenkins
         group: jenkins
 
-    - name: Copying ssh key to authorize folder
-      ansible.builtin.copy:
-        src: /home/jenkins/.ssh/id_rsa.pub 
-        dest: /home/jenkins/.ssh/authorized_keys
-        owner: jenkins
-        group: jenkins
+    - name: Copying ssh key to host folder
+      ansible.builtin.fetch:
+        src: /home/jenkins/.ssh/id_rsa.pub
+        dest: /files
         
