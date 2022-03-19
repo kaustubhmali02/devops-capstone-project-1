@@ -16,15 +16,21 @@
   name: Installing Jenkins on jenkins-server
   tasks:
 
-    - name: Copying the jenkins-script to the remote server
-      ansible.builtin.copy:
-        src: jenkins-install.sh
-        dest: /tmp/jenkins/
-        mode: 0777
+    - name: ensure the repository is configured
+      ansible.builtin.apt_repository: 
+        repo: 'deb https://pkg.jenkins.io/debian-stable binary/'
+        state: present
+
+    - name: Add Jenkins GPG apt Key
+      ansible.builtin.apt_key:
+        apt_key: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+        state: present
     
-    - name: Executing jenkins-script to the remote server
-      ansible.builtin.command:
-        cmd: /bin/sh /tmp/jenkins/jenkins-install.sh
+    - name: ensure jenkins is installed
+      ansible.builtin.apt: 
+        name: jenkins 
+        update_cache: yes
+        state: latest
 
     - name: Enabling jenkins service
       ansible.builtin.service:
@@ -72,15 +78,36 @@
         state: directory
         mode: 0777
 
-    - name: Copying the docker-script to the remote server
-      ansible.builtin.copy:
-        src: docker-install.sh
-        dest: /tmp/docker/
-        mode: 0777
+    - name: Install aptitude using apt
+      ansible.builtin.apt: 
+        name: aptitude 
+        state: latest
+        update_cache: yes 
+        force_apt_get: yes
+
+    - name: Install required system packages
+      ansible.builtin.apt: 
+        name: {{ item }} 
+        state: latest 
+        update_cache: yes
+        loop: [ 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools']
     
-    - name: Executing docker-script to the remote server
-      ansible.builtin.command:
-        cmd: /bin/sh /tmp/docker/docker-install.sh
+    - name: Add Docker GPG apt Key
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+    
+    - name: Add Docker Repository
+      ansible.builtin.apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Update apt and install docker-ce
+      ansible.builtin.apt: 
+        update_cache: yes 
+        name: {{ item }} 
+        state: latest
+        loop: ['docker-ce', 'docker-ce-cli', 'containerd.io']
 
     - name: Enabling docker service
       ansible.builtin.service:
