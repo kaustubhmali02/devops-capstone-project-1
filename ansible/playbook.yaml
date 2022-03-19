@@ -58,6 +58,13 @@
 - hosts: worker_nodes
   become: true
   name: Installing required (Nginx) softwares in worker_nodes
+  vars:
+    packages: 
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg
+      - lsb-release
   tasks:
 
     - name: Installing Nginx softwares
@@ -87,7 +94,7 @@
 
     - name: Install required system packages
       ansible.builtin.apt: 
-        name: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg', 'lsb-release']
+        name: {{ packages }}
         state: latest 
         update_cache: yes
       
