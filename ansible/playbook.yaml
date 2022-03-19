@@ -16,16 +16,16 @@
   name: Installing Jenkins on jenkins-server
   tasks:
 
-    - name: ensure the repository is configured
-      ansible.builtin.apt_repository: 
-        repo: 'deb https://pkg.jenkins.io/debian-stable binary/'
-        state: present
-
     - name: Add Jenkins GPG apt Key
       ansible.builtin.apt_key:
         apt_key: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+        state: present 
+
+    - name: Configureing Jenkins repository is configured
+      ansible.builtin.apt_repository: 
+        repo: 'deb https://pkg.jenkins.io/debian-stable binary/'
         state: present
-    
+        
     - name: ensure jenkins is installed
       ansible.builtin.apt: 
         name: jenkins 
