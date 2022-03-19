@@ -128,5 +128,5 @@
 
     - name: Copying ssh key to authorize folder
       ansible.builtin.command:
-        cmd: /bin/cat /home/jenkins/.ssh/id_rsa.pub > /home/jenkins/.ssh/authorized_keys
+        cmd: /usr/bin/cat /home/jenkins/.ssh/id_rsa.pub > /home/jenkins/.ssh/authorized_keys
         
