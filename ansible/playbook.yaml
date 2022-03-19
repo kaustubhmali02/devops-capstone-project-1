@@ -87,7 +87,9 @@
 
     - name: Install required system packages
       ansible.builtin.apt: 
-        name: '{{ items }}' 
+        name: 
+          with-items: 
+            '{{ items }}' 
         state: latest 
         update_cache: yes
       loop:
