@@ -127,6 +127,9 @@
         group: jenkins
 
     - name: Copying ssh key to authorize folder
-      ansible.builtin.command:
-        cmd: /usr/bin/cat /home/jenkins/.ssh/id_rsa.pub > /home/jenkins/.ssh/authorized_keys
+      ansible.builtin.copy:
+        src: /home/jenkins/.ssh/id_rsa.pub 
+        dest: /home/jenkins/.ssh/authorized_keys
+        owner: jenkins
+        group: jenkins
         
