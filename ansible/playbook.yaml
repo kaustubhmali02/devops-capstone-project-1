@@ -18,7 +18,7 @@
 
     - name: Add Jenkins GPG apt Key
       ansible.builtin.apt_key:
-        apt_key: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+        key: https://pkg.jenkins.io/debian-stable/jenkins.io.key
         state: present 
 
     - name: Configureing Jenkins repository is configured
