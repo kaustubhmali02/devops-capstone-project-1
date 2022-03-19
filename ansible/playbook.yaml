@@ -19,7 +19,7 @@
     - name: Copying the jenkins-script to the remote server
       ansible.builtin.copy:
         src: jenkins-install.sh
-        dest: /tmp/jenkins
+        dest: /tmp/jenkins/
         mode: 0777
     
     - name: Executing jenkins-script to the remote server
