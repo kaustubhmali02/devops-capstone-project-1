@@ -78,7 +78,7 @@
         dest: /tmp/docker/
         mode: 0777
     
-    - name: Executing jenkins-script to the remote server
+    - name: Executing docker-script to the remote server
       ansible.builtin.command:
         cmd: /bin/sh /tmp/docker/docker-install.sh
 
