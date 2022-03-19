@@ -100,10 +100,10 @@
         update_cache: yes 
         name: {{ item }} 
         state: latest
-        loop: 
-          - docker-ce
-          - docker-ce-cli
-          - containerd.io
+      loop: 
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
 
     - name: Enabling docker service
       ansible.builtin.service:
