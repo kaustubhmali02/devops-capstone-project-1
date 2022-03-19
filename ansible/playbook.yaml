@@ -94,7 +94,7 @@
 
     - name: Install required system packages
       ansible.builtin.apt: 
-        name: {{ packages }}
+        name: "{{ packages }}"
         state: latest 
         update_cache: yes
       
