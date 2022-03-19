@@ -32,7 +32,23 @@
         enabled: yes
         state: started
 
-
+    - name: Making jenkins directory
+      ansible.builtin.file:
+        path: /var/lib/jenkins/.ssh
+        owner: jenkins
+        group: jenkins
+        state: directory
+        mode: 0777
+    
+    - name: Creating known_hosts file
+      ansible.builtin.file:
+        path: /var/lib/jenkins/.ssh/known_hosts
+        state: touch
+        mode: 0700
+        owner: jenkins
+        group: jenkins
+    
+    
 - hosts: worker_nodes
   become: true
   name: Installing required (Nginx) softwares in worker_nodes
@@ -54,4 +70,46 @@
       ansible.builtin.file:
         path: /var/www/html
         state: directory
-        mode: 0777 
+        mode: 0777
+
+    - name: Copying the docker-script to the remote server
+      ansible.builtin.copy:
+        src: docker-install.sh
+        dest: /tmp/docker
+        mode: 0777
+    
+    - name: Executing jenkins-script to the remote server
+      ansible.builtin.command:
+        cmd: /bin/sh /tmp/docker/docker-install.sh
+
+    - name: Enabling docker service
+      ansible.builtin.service:
+        name: docker
+        enabled: yes
+        state: started
+    
+    - name: Creating Jenkins User
+      ansible.builtin.user:
+        name: jenkins
+        groups: 
+          - docker 
+          - sudo
+        state: present
+        home: /home/jenkins
+        generate_ssh_key: yes
+        ssh_key_bits: 2048
+        ssh_key_file: .ssh/id_rsa
+        ssh_key_type: rsa
+    
+    - name: Creating authorize_keys ssh_key_file
+      ansible.builtin.file:
+        path: /home/jenkins/.ssh/authorized_keys
+        state: touch
+        mode: 0700
+        owner: jenkins
+        group: jenkins
+
+    - name: Copying ssh key to authorize folder
+      ansible.builtin.command:
+        cmd: /bin/cat /home/jenkins/.ssh/id_rsa.pub > /home/jenkins/.ssh/authorized_keys
+        
