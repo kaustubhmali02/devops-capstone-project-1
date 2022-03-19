@@ -77,7 +77,7 @@
         path: /var/www/html
         state: directory
         mode: 0777
-        
+
     - name: Add Docker GPG apt Key
       ansible.builtin.apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
@@ -85,7 +85,7 @@
     
     - name: Add Docker Repository
       ansible.builtin.apt_repository:
-        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        repo: deb https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable
         state: present
 
     - name: Update apt and install docker-ce
