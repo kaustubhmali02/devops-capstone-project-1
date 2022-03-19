@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Fix apt packages
+sudo apt autoremove && sudo apt autoclean -y
+
+# Uninstall old versions
+sudo apt-get remove -y docker docker-engine docker.io containerd runc
+
 # Updating packages
 sudo apt-get update
 
