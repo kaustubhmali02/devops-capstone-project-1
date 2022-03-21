@@ -161,8 +161,7 @@
     - name: Untar Maven 
       ansible.builtin.shell: 
         chdir: /opt
-        creates: /opt/apache-maven-3.8.5
-        cmd: tar -zxf apache-maven-3.8.5-bin.tar.gz -C /opt/apache-maven-3.8.5
+        creates: /opt/apache-maven-3.8.5 tar -zxf apache-maven-3.8.5-bin.tar.gz -C /opt/apache-maven-3.8.5
     
     - name: Update path for maven use
       ansible.builtin.shell: export PATH=/opt/apache-maven-3.1.1/bin:$PATH
