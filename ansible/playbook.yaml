@@ -14,8 +14,6 @@
 - hosts: jenkins_master
   become: true
   name: Installing Jenkins on jenkins-server
-  vars:
-    public_key_data: string
   tasks:
 
     - name: Add Jenkins GPG apt Key
@@ -69,6 +67,9 @@
 - hosts: worker_nodes
   become: true
   name: Installing required (Nginx) softwares in worker_nodes
+  vars:
+    jenkins_password: "password"
+  gather_facts: false
   tasks:
 
     - name: Installing Nginx softwares
@@ -120,6 +121,7 @@
       ansible.builtin.user:
         name: jenkins
         shell: /bin/bash
+        password: "{{ jenkins_password }}"
         groups: 
           - docker 
           - sudo
@@ -141,6 +143,7 @@
         user: jenkins
         key: "{{ lookup('file', '/home/jenkins/.ssh/id_rsa.pub') }}"
         state: present
+
     # - name: Creating authorize_keys ssh_key_file
     #   ansible.builtin.file:
     #     path: /home/jenkins/.ssh/authorized_keys
