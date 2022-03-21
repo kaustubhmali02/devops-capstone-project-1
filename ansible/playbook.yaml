@@ -58,7 +58,7 @@
 
     - name: Add public key from backups_host  
       ansible.builtin.known_hosts:
-        name: {{ worker_nodes }}
+        name: [ec2-3-145-116-179.us-east-2.compute.amazonaws.com, ec2-18-217-251-218.us-east-2.compute.amazonaws.com]
         path: /var/lib/jenkins/.ssh/known_hosts
         state: present
         key: "{{ public_key_data.stdout }}"
