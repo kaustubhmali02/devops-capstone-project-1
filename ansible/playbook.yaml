@@ -114,7 +114,7 @@
           - docker 
           - sudo
         append: yes
-        password: ""
+        password: password
         state: present
         home: /home/jenkins
         generate_ssh_key: yes
