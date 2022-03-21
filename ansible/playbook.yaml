@@ -45,6 +45,8 @@
         group: jenkins
         state: directory
         mode: 0777
+      notify:
+        name: Creating known_hosts file
     
     - name: Creating known_hosts file
       ansible.builtin.file:
@@ -126,8 +128,18 @@
         owner: jenkins
         group: jenkins
 
-    - name: Copying ssh key to host folder
-      ansible.builtin.fetch:
-        src: /home/jenkins/.ssh/id_rsa.pub
-        dest: /files
+    # - name: Fetching public ssh key to root folder
+    #   ansible.builtin.fetch:
+    #     src: /home/jenkins/.ssh/id_rsa.pub
+    #     dest: /copied-pubkeys
         
+    # - name: Copying keys to the remote .ssh/authorized_keys file
+    #   ansible.builtin.copy:
+    #     src: 
+
+    - name: Copying remote .ssh/id_rsa.pub to .ssh/authorized_keys
+      ansible.posix.authorized_key:
+        user: jenkins
+        state: present
+        key: "{{ lookup('file', '/home/jenkins/.ssh/id_rsa.pub') }}"
+        path: /home/jenkins/.ssh/authorized_keys
