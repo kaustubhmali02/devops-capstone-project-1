@@ -138,7 +138,7 @@
     - name: Set authorized key
       authorized_key: 
         user: jenkins
-        key: "{{ new_user.ssh_public_key }}"
+        key: "{{ jenkins.ssh_public_key }}"
         state: present
 
     # - name: Creating authorize_keys ssh_key_file
