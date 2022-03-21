@@ -114,7 +114,6 @@
           - docker 
           - sudo
         append: yes
-        password: password
         state: present
         home: /home/jenkins
         generate_ssh_key: yes
@@ -140,11 +139,7 @@
     #     src: 
 
     - name: Copying remote .ssh/id_rsa.pub to .ssh/authorized_keys
-      become_method: sudo
       ansible.posix.authorized_key:
         user: jenkins
         state: present
-        key: .ssh/id_rsa.pub
-        path: /home/jenkins/.ssh/authorized_keys
-        manage_dir: no
-        validate_certs: no
+        key: "{{ lookup('file', '/home/jenkins/.ssh/id_rsa.pub') }}"
