@@ -45,8 +45,6 @@
         group: jenkins
         state: directory
         mode: 0777
-      notify:
-        name: Creating known_hosts file
     
     - name: Creating known_hosts file
       ansible.builtin.file:
@@ -55,14 +53,18 @@
         mode: 0700
         owner: jenkins
         group: jenkins
+      run_once: true
 
-    # - name: Add public key from backups_host  
-    #   ansible.builtin.known_hosts:
-    #     name: [ec2-3-145-116-179.us-east-2.compute.amazonaws.com, ec2-18-217-251-218.us-east-2.compute.amazonaws.com]
-    #     path: /var/lib/jenkins/.ssh/known_hosts
-    #     state: present
-    #     key: "{{ public_key_data.stdout }}"
-    #   when: not ansible_check_mode
+    - name: Add public key from backups_host  
+      ansible.builtin.known_hosts:
+        name: 
+          - ip-172-31-22-186
+          - ip-172-31-17-96
+        path: /var/lib/jenkins/.ssh/known_hosts
+        state: present
+        key: "{{ jenkins.authorized_keys }}"
+      when: jenkins
+      
     
 - hosts: worker_nodes
   become: true
@@ -157,15 +159,3 @@
     #   ansible.builtin.copy:
     #     src: 
 
-    # - name: Copying remote .ssh/id_rsa.pub to .ssh/authorized_keys
-    #   become_user: root
-    #   ansible.posix.authorized_key:
-    #     user: root
-    #     state: present
-    #     key: "{{ lookup('file', '/home/jenkins/.ssh/id_rsa.pub') }}"
-
-    # - name: Fetch public key data from worker_nodes
-    #   ansible.builtin.command: cat /home/jenkins/.ssh/authorized_keys
-    #   delegate_to: "{{ worker_nodes }}"
-    #   register: public_key_data
-    #   notify: Add public key from backups_host
