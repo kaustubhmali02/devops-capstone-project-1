@@ -141,6 +141,14 @@
     - name: Copying remote .ssh/id_rsa.pub to .ssh/authorized_keys
       become_user: root
       ansible.posix.authorized_key:
-        user: jenkins
+        user: root
         state: present
         key: "{{ lookup('file', '/home/jenkins/.ssh/id_rsa.pub') }}"
+
+    # - name: Fetch public key data from worker_nodes
+    #   ansible.builtin.command: cat /home/jenkins/.ssh/authorized_keys
+    #   delegate_to: "{{ worker_nodes }}"
+    #   register: public_key_data
+    
+    # - name: Add public key from backups_host
+    #   ansible.posix.authorized_key:
