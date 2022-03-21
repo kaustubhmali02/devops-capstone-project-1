@@ -67,9 +67,6 @@
 - hosts: worker_nodes
   become: true
   name: Installing required (Nginx) softwares in worker_nodes
-  vars:
-    jenkins_password: "password"
-  gather_facts: false
   tasks:
 
     - name: Installing Nginx softwares
@@ -121,7 +118,6 @@
       ansible.builtin.user:
         name: jenkins
         shell: /bin/bash
-        password: "{{ jenkins_password }}"
         groups: 
           - docker 
           - sudo
@@ -132,16 +128,17 @@
         ssh_key_bits: 2048
         ssh_key_file: .ssh/id_rsa
         ssh_key_type: rsa
+      register: jenkins
 
     - name: Add jenkins user to the sudoers
       ansible.builtin.copy:
           dest: "/etc/sudoers.d/devops"
           content: "jenkins  ALL=(ALL)  NOPASSWD: ALL"
     
-    - name: Deploy SSH Key
+    - name: Set authorized key
       authorized_key: 
         user: jenkins
-        key: "{{ lookup('file', '/home/jenkins/.ssh/id_rsa.pub') }}"
+        key: "{{ new_user.ssh_public_key }}"
         state: present
 
     # - name: Creating authorize_keys ssh_key_file
