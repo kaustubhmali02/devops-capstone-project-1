@@ -169,4 +169,6 @@
         cmd: tar -zxf apache-maven-3.8.5-bin.tar.gz -C /opt/apache-maven-3.8.5
     
     - name: Update path for maven use
-      ansible.builtin.command: export PATH=/opt/apache-maven-3.8.5/bin:$PATH
+      ansible.builtin.lineinfile:
+        dest: /etc/environment
+        line: "PATH=/opt/apache-maven-3.8.5/bin:$PATH"
