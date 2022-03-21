@@ -144,7 +144,6 @@
     - name: Changing the mode of authorize_keys file
       ansible.builtin.file:
         path: /home/jenkins/.ssh/authorized_keys
-        state: present
         mode: 0700
         owner: jenkins
         group: jenkins
