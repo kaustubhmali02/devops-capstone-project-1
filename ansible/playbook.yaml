@@ -58,12 +58,13 @@
         owner: jenkins
         group: jenkins
 
-    - name: Add public key from backups_host  
-      ansible.builtin.known_hosts:
-        name: [ec2-3-145-116-179.us-east-2.compute.amazonaws.com, ec2-18-217-251-218.us-east-2.compute.amazonaws.com]
-        path: /var/lib/jenkins/.ssh/known_hosts
-        state: present
-        key: "{{ public_key_data.stdout }}"
+    # - name: Add public key from backups_host  
+    #   ansible.builtin.known_hosts:
+    #     name: [ec2-3-145-116-179.us-east-2.compute.amazonaws.com, ec2-18-217-251-218.us-east-2.compute.amazonaws.com]
+    #     path: /var/lib/jenkins/.ssh/known_hosts
+    #     state: present
+    #     key: "{{ public_key_data.stdout }}"
+    #   when: not ansible_check_mode
     
 - hosts: worker_nodes
   become: true
@@ -118,6 +119,7 @@
     - name: Creating Jenkins User
       ansible.builtin.user:
         name: jenkins
+        shell: /bin/bash
         groups: 
           - docker 
           - sudo
@@ -128,14 +130,19 @@
         ssh_key_bits: 2048
         ssh_key_file: .ssh/id_rsa
         ssh_key_type: rsa
+
+    - name: Add devops user to the sudoers
+      ansible.builtin.copy:
+          dest: "/etc/sudoers.d/devops"
+          content: "devops  ALL=(ALL)  NOPASSWD: ALL"
     
-    - name: Creating authorize_keys ssh_key_file
-      ansible.builtin.file:
-        path: /home/jenkins/.ssh/authorized_keys
-        state: touch
-        mode: 0700
-        owner: jenkins
-        group: jenkins
+    # - name: Creating authorize_keys ssh_key_file
+    #   ansible.builtin.file:
+    #     path: /home/jenkins/.ssh/authorized_keys
+    #     state: touch
+    #     mode: 0700
+    #     owner: jenkins
+    #     group: jenkins
 
     # - name: Fetching public ssh key to root folder
     #   ansible.builtin.fetch:
@@ -153,8 +160,8 @@
     #     state: present
     #     key: "{{ lookup('file', '/home/jenkins/.ssh/id_rsa.pub') }}"
 
-    - name: Fetch public key data from worker_nodes
-      ansible.builtin.command: cat /home/jenkins/.ssh/authorized_keys
-      delegate_to: "{{ worker_nodes }}"
-      register: public_key_data
-      notify: Add public key from backups_host
+    # - name: Fetch public key data from worker_nodes
+    #   ansible.builtin.command: cat /home/jenkins/.ssh/authorized_keys
+    #   delegate_to: "{{ worker_nodes }}"
+    #   register: public_key_data
+    #   notify: Add public key from backups_host
