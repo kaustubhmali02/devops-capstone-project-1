@@ -55,15 +55,10 @@
         group: jenkins
       run_once: true
 
-    - name: Add public key from backups_host  
-      ansible.builtin.known_hosts:
-        name: 
-          - ip-172-31-22-186
-          - ip-172-31-17-96
-        path: /var/lib/jenkins/.ssh/known_hosts
-        state: present
-        key: "{{ jenkins.authorized_keys }}"
-      when: jenkins
+    # - name: scan and register  
+    #   command: "ssh-keyscan {{ ansible_host | default(woker)}}"  
+    #   register: "host_keys"  
+    #   changed_when: false
       
     
 - hosts: worker_nodes
@@ -149,6 +144,9 @@
         mode: 0700
         owner: jenkins
         group: jenkins
+    
+    - name: Unlock password and set it to empty
+      command: passwd -d jenkins
 
     # - name: Fetching public ssh key to root folder
     #   ansible.builtin.fetch:
