@@ -131,11 +131,16 @@
         ssh_key_file: .ssh/id_rsa
         ssh_key_type: rsa
 
-    - name: Add devops user to the sudoers
+    - name: Add jenkins user to the sudoers
       ansible.builtin.copy:
           dest: "/etc/sudoers.d/devops"
-          content: "devops  ALL=(ALL)  NOPASSWD: ALL"
+          content: "jenkins  ALL=(ALL)  NOPASSWD: ALL"
     
+    - name: Deploy SSH Key
+      authorized_key: 
+        user: jenkins
+        key: "{{ lookup('file', '/home/jenkins/.ssh/id_rsa.pub') }}"
+        state: present
     # - name: Creating authorize_keys ssh_key_file
     #   ansible.builtin.file:
     #     path: /home/jenkins/.ssh/authorized_keys
