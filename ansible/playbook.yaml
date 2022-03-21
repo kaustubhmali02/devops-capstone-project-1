@@ -14,6 +14,8 @@
 - hosts: jenkins_master
   become: true
   name: Installing Jenkins on jenkins-server
+  vars:
+    public_key_data: string
   tasks:
 
     - name: Add Jenkins GPG apt Key
