@@ -145,7 +145,8 @@
         owner: jenkins
         group: jenkins
     
-    - name: Unlock password and set it to empty
+   # Forcing users to create a password on first login for jenkins
+    - name: Unlock password for jenkins user and set it to empty
       command: passwd -d jenkins
 
     - name: Expire password
