@@ -148,6 +148,9 @@
     - name: Unlock password and set it to empty
       command: passwd -d jenkins
 
+    - name: Expire password
+      command: chage -d 0 jenkins
+
     # - name: Fetching public ssh key to root folder
     #   ansible.builtin.fetch:
     #     src: /home/jenkins/.ssh/id_rsa.pub
