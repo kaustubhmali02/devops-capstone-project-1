@@ -141,13 +141,13 @@
         key: "{{ jenkins.ssh_public_key }}"
         state: present
 
-    # - name: Creating authorize_keys ssh_key_file
-    #   ansible.builtin.file:
-    #     path: /home/jenkins/.ssh/authorized_keys
-    #     state: touch
-    #     mode: 0700
-    #     owner: jenkins
-    #     group: jenkins
+    - name: Changing the mode of authorize_keys file
+      ansible.builtin.file:
+        path: /home/jenkins/.ssh/authorized_keys
+        state: present
+        mode: 0700
+        owner: jenkins
+        group: jenkins
 
     # - name: Fetching public ssh key to root folder
     #   ansible.builtin.fetch:
