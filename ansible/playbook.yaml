@@ -113,7 +113,7 @@
         groups: 
           - docker 
           - sudo
-          - wheel
+        append: yes
         state: present
         home: /home/jenkins
         generate_ssh_key: yes
