@@ -160,7 +160,7 @@
 
     - name: Untar Maven 
       ansible.builtin.shell: 
-        chdir: /opt/
+        chdir: /opt
         creates: /opt/apache-maven-3.8.5
         cmd: tar -zxf apache-maven-3.8.5-bin.tar.gz -C /opt/apache-maven-3.8.5
     
