@@ -142,5 +142,7 @@
       ansible.posix.authorized_key:
         user: jenkins
         state: present
-        key: id_rsa.pub
+        key: /home/jenkins/.ssh/id_rsa.pub
         path: /home/jenkins/.ssh/authorized_keys
+        manage_dir: no
+        validate_certs: no
