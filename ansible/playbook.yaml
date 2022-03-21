@@ -156,13 +156,13 @@
     - name: Download Apache Maven 
       ansible.builtin.get_url: 
         url: https://downloads.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz
-        dest: /opt/apache/apache-maven-3.8.5-bin.tar.gz
+        dest: /opt/apache-maven-3.8.5-bin.tar.gz
 
     - name: Untar Maven 
       ansible.builtin.shell: 
-        chdir: /opt/apache
-        creates: /opt/apache/apache-maven-3.8.5
-        cmd: tar -zxf apache-maven-3.8.5-bin.tar.gz -C /opt/apache/apache-maven-3.8.5
+        chdir: /opt/
+        creates: /opt/apache-maven-3.8.5
+        cmd: tar -zxf apache-maven-3.8.5-bin.tar.gz -C /opt/apache-maven-3.8.5
     
     - name: Update path for maven use
-      ansible.builtin.shell: export PATH=/opt/apache/apache-maven-3.1.1/bin:$PATH
+      ansible.builtin.shell: export PATH=/opt/apache-maven-3.1.1/bin:$PATH
