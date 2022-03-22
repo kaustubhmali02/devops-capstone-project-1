@@ -171,8 +171,8 @@
         mode: 0744
         line: "{{ item }}"
       loop: 
-        - export M2_HOME=/opt/apache-maven-3.8.5
-        - export MAVEN_HOME=/opt/apache-maven-3.8.5
+        - export M2_HOME=/opt/apache-maven-3.8.5/apache-maven-3.8.5
+        - export MAVEN_HOME=/opt/apache-maven-3.8.5/apache-maven-3.8.5
         - export PATH=${M2_HOME}/bin:${PATH}
 
    # Adding chromedriver for the webiste
