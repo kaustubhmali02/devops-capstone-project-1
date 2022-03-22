@@ -55,11 +55,6 @@
         group: jenkins
       run_once: true
 
-    # - name: scan and register  
-    #   command: "ssh-keyscan {{ ansible_host | default(woker)}}"  
-    #   register: "host_keys"  
-    #   changed_when: false
-      
     
 - hosts: worker_nodes
   become: true
