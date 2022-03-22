@@ -110,6 +110,7 @@
       ansible.builtin.user:
         name: jenkins
         shell: /bin/bash
+        password: password
         groups: 
           - docker 
           - sudo
@@ -143,9 +144,6 @@
    # Forcing users to create a password on first login for jenkins
     - name: Unlock password for jenkins user and set it to empty
       command: passwd -d jenkins
-
-    - name: Expire password
-      command: chage -d 0 jenkins
   
    # Download Maven and Configure the path
     - name: Download Apache Maven 
