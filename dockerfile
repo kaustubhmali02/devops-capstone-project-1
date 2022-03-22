@@ -1,7 +1,8 @@
-FROM ubuntu:latest
+FROM ubuntu:latest AS website
 ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /home/jenkins/workspace/
 RUN apt-get -y update && apt-get -y install apache2
 CMD apachectl -DFOREGROUND
-COPY website/website.html /var/www/html/
-COPY website/style-building.css /var/www/html/
+COPY /build/website/* /var/www/html/
+# Exposing a different port
+EXPOSE 80
