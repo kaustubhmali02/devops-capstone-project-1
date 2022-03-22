@@ -55,7 +55,7 @@
         group: jenkins
       run_once: true
 
-    
+
 - hosts: worker_nodes
   become: true
   name: Installing required (Nginx) softwares in worker_nodes
@@ -165,5 +165,21 @@
     
     - name: Update path for maven use
       ansible.builtin.lineinfile:
-        dest: /etc/environment
-        line: "PATH=/opt/apache-maven-3.8.5/bin:$PATH"
+        dest: /etc/profile.d/maven.sh
+        create: yes
+        state: present
+        mode: 0744
+        line: "{{ item }}"
+      loop: 
+        - export M2_HOME=/opt/apache-maven-3.8.5
+        - export MAVEN_HOME=/opt/apache-maven-3.8.5
+        - export PATH=${M2_HOME}/bin:${PATH}
+
+   # Adding chromedriver for the webiste
+    - name : Copying chromedriver to the remote worker_nodes
+      ansible.builtin.copy:
+        src: chromedriver
+        dest: /home/jenkins/workspace/
+        owner: jenkins
+        group: jenkins
+        mode: 0777
