@@ -18,3 +18,4 @@ bin-release/
 # information for Eclipse / Flash Builder.
 docs/Capstone-Project01_updated.pdf
 .vscode/settings.json
+selenium/target/classes/CaseStudy_Selenium.class
