@@ -175,7 +175,7 @@
     - name : Copying chromedriver to the remote worker_nodes
       ansible.builtin.copy:
         src: chromedriver
-        dest: /home/jenkins/workspace/
+        dest: /home/jenkins/
         owner: jenkins
         group: jenkins
         mode: 0777
