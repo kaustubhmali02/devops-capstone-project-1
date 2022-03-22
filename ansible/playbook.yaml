@@ -110,7 +110,7 @@
       ansible.builtin.user:
         name: jenkins
         shell: /bin/bash
-        password: password
+        password: "{{ password | password_hash('sha512') }}"
         groups: 
           - docker 
           - sudo
