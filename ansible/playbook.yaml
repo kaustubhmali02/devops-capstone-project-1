@@ -59,6 +59,8 @@
 - hosts: worker_nodes
   become: true
   name: Installing required (Nginx) softwares in worker_nodes
+  vars:
+    password: password
   tasks:
 
     - name: Installing Nginx softwares
