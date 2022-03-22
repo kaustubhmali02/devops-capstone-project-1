@@ -179,3 +179,12 @@
         owner: jenkins
         group: jenkins
         mode: 0777
+
+    # Adding a script to checking the containers are already running
+    - name: Copying check-container running scripts
+      ansible.builtin.copy:
+        src: check-running-containers.sh
+        dest: /home/jenkins/
+        owner: jenkins
+        group: jenkins
+        mode: 0777
