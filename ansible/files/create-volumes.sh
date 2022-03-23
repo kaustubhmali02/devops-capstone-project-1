@@ -20,5 +20,5 @@ else
     --name get-target \
     --opt type=none \
     --opt device=/home/jenkins/output/test-results \
-    --opt o=bind \
+    --opt o=bind 
 fi
