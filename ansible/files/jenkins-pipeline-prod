@@ -1,0 +1,25 @@
+pipeline {
+	agent {label 'Worker-1'}
+	stages {
+	    stage ("1. Git repo") {
+	        steps {
+	            git branch: 'master', url: 'https://github.com/kaustubhmali02/devops-capstone-project-1.git'
+	        }
+	    }
+	    stage('2. Stop all old containers') {
+	        steps {
+		        sh '/home/jenkins/check-running-containers.sh'
+	        }
+        }
+		stage ("3. Build the docker file") {
+			steps {
+				sh "docker build -t website ."
+				}
+			}
+		stage ("4. Run the docker file") {
+		    steps {
+		        sh "docker run -itd -p 82:80 --name website website"
+		    }
+		}
+	}
+}
