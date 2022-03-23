@@ -194,7 +194,7 @@
         path: /home/jenkins/output/java
         state: directory
 
-    - name: Creating a directory for retrieving java build jar
+    - name: Creating a directory for retrieving test-out-put from the testing scenario
       ansible.builtin.file:
         path: /home/jenkins/output/test-results
         state: directory
