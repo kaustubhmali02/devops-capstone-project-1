@@ -188,3 +188,13 @@
         owner: jenkins
         group: jenkins
         mode: 0777
+
+    - name: Creating a directory for retrieving java build jar
+      ansible.builtin.file:
+        path: /home/jenkins/output/java
+        state: directory
+
+    - name: Creating a directory for retrieving java build jar
+      ansible.builtin.file:
+        path: /home/jenkins/output/test-results
+        state: directory
