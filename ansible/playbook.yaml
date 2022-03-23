@@ -195,7 +195,6 @@
         state: directory
         owner: jenkins
         group: jenkins
-        mode: 0777
 
     - name: Creating a directory for retrieving test-out-put from the testing scenario
       ansible.builtin.file:
@@ -203,4 +202,3 @@
         state: directory
         owner: jenkins
         group: jenkins
-        mode: 0777
