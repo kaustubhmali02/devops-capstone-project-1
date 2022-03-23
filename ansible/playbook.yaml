@@ -188,13 +188,3 @@
         owner: jenkins
         group: jenkins
         mode: 0777
-
-    - name: Creating a symbolic link for accessing the local volume data
-      ansible.builtin.file:
-        src: /home/jenkins/output/target
-        dest: /var/lib/docker/volumes/get-output/_data
-        owner: jenkins
-        group: jenkins
-        state: link
-        mode: 0777
-
