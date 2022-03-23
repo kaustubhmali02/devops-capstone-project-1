@@ -6,9 +6,9 @@ if [ "$(docker volume ls -q -f name=get-output)" ]; then
 else 
     echo "Creating a volume for retriving the jar files"
     docker volume create \
-    --name get-target
-    --opt type=none
-    --opt device=/home/jenkins/output/java
+    --name get-target \
+    --opt type=none \
+    --opt device=/home/jenkins/output/java \
     --opt o=bind
 fi
 
@@ -17,8 +17,8 @@ if [ "$(docker volume ls -q -f name=get-test-output)" ]; then
 else
     echo "Creating a volume for retriving the test-result files"
     docker volume create \
-    --name get-target
-    --opt type=none
-    --opt device=/home/jenkins/output/test-results
-    --opt o=bind
+    --name get-target \
+    --opt type=none \
+    --opt device=/home/jenkins/output/test-results \
+    --opt o=bind \
 fi
