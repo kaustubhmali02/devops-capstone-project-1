@@ -1,0 +1,32 @@
+pipeline {
+	agent {label 'Worker-2'}
+	stages {
+	    stage ("1. Git repo") {
+	        steps {
+	            git branch: 'master', url: 'https://github.com/kaustubhmali02/devops-capstone-project-1.git'
+	        }
+	    }
+		stage ("2. Build the docker file") {
+			steps {
+				sh "docker build -t test-wesbite ./selenium"
+				}
+			}
+		stage ("3. Create a volume if needed")
+		    steps {
+		        sh '/home/jenkins/create-volumes.sh'
+		    }
+		stage ("4. Run the docker file") {
+		    steps {
+		        sh '''
+		        docker run \
+		        --name test-website \
+		        --rm \
+		        --detach \
+		        --mount source=get-target, target=/usr/src/selenium-test/target \
+		        --mount source=get-test-output, target=target=/usr/src/selenium-test/test-output \
+		        test-wesbite:latest
+		        '''
+		    }
+		}
+	}
+}
