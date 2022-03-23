@@ -4,4 +4,4 @@ WORKDIR /usr/src/selenium-test
 RUN chmod +x driver/chromedriver
 RUN mvn clean package
 RUN mvn clean compile assembly:single
-RUN java -jar target/Sele*.jar
+RUN java -jar target/Selenium-1.0-SNAPSHOT-jar-with-dependencies.jar
