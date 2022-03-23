@@ -17,7 +17,7 @@ if [ "$(docker volume ls -q -f name=get-test-output)" ]; then
 else
     echo "Creating a volume for retriving the test-result files"
     docker volume create \
-    --name get-target \
+    --name get-test-result \
     --opt type=none \
     --opt device=/home/jenkins/output/test-results \
     --opt o=bind 
