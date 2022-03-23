@@ -181,10 +181,29 @@
         mode: 0777
 
     # Adding a script to checking the containers are already running
-    - name: Copying check-container running scripts
+    - name: Copying check-container running script
       ansible.builtin.copy:
         src: check-running-containers.sh
         dest: /home/jenkins/
         owner: jenkins
         group: jenkins
         mode: 0777
+
+    # Adding a script for creating volumes
+    - name: Copying create-volume script
+      ansible.builtin.copy:
+        src: create-volume.sh
+        dest: /home/jenkins/
+        owner: jenkins
+        group: jenkins
+        mode: 0777
+
+    - name: Creating a symbolic link for accessing the local volume data
+      ansible.builtin.file:
+        src: /home/jenkins/output/target
+        dest: /var/lib/docker/volumes/get-output/_data
+        owner: jenkins
+        group: jenkins
+        state: link
+        mode: 0777
+
