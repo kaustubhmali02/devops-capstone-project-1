@@ -19,6 +19,6 @@ else
     docker volume create \
     --name get-test-result \
     --opt type=none \
-    --opt device=/home/jenkins/output/test-results \
+    --opt device=/home/jenkins/output/test-output \
     --opt o=bind 
 fi
