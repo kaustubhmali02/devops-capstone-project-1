@@ -1,0 +1,5 @@
+FROM maven:3.8.4-jdk-11
+COPY . /usr/src/selenium-test
+WORKDIR /usr/src/selenium-test
+RUN mvn clean package
+RUN clean compile assembly:single

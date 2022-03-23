@@ -25,7 +25,7 @@ public class CaseStudy_Selenium {
 
     @BeforeTest
     private void initChromeDriver() {
-        System.setProperty("webdriver.chrome.driver", "/home/kaustubh/jenkins/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "/home/jenkins/chromedriver");
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(true);
         driver = new ChromeDriver(options);
@@ -33,18 +33,18 @@ public class CaseStudy_Selenium {
 
     @BeforeMethod
     private void openBrowser() {
-        String url = "https://www.bing.com/";
+        String url = "http://ec2-18-220-132-31.us-east-2.compute.amazonaws.com:82/website/website.html";
         driver.get(url);
         driver.manage().window().maximize();
     }
 
     @Test(priority = 1)
-    private void searchOnBing() {
-        String search = "Intellipaat";
-        element = driver.findElement(By.xpath("//input[@id='sb_form_q']"));
-        element.sendKeys(search);
-        element = driver.findElement(By.xpath("//input[@id='sb_form_go']"));
-        element.submit();
+    private void searchOnWeb() {
+        //String search = "Intellipaat";
+        element = driver.findElement(By.xpath("//a[contains(text(),'Search the Web')]"));
+        element.submit();;
+        // element = driver.findElement(By.xpath("//input[@id='sb_form_go']"));
+        // element.submit();
     }
 
     @Test(priority = 2)
