@@ -171,15 +171,6 @@
         - export MAVEN_HOME=/opt/apache-maven-3.8.5/apache-maven-3.8.5
         - export PATH=${M2_HOME}/bin:${PATH}
 
-   # Adding chromedriver for the webiste
-    - name : Copying chromedriver to the remote worker_nodes
-      ansible.builtin.copy:
-        src: chromedriver
-        dest: /home/jenkins/
-        owner: jenkins
-        group: jenkins
-        mode: 0777
-
     # Adding a script to checking the containers are already running
     - name: Copying check-container running script
       ansible.builtin.copy:
