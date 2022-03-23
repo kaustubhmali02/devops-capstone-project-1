@@ -183,7 +183,7 @@
     # Adding a script for creating volumes
     - name: Copying create-volume script
       ansible.builtin.copy:
-        src: create-volume.sh
+        src: create-volumes.sh
         dest: /home/jenkins/
         owner: jenkins
         group: jenkins
