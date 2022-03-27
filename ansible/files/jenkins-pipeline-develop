@@ -3,7 +3,7 @@ pipeline {
 	stages {
 	    stage ("1. Git repo") {
 	        steps {
-	            git branch: 'master', url: 'https://github.com/kaustubhmali02/devops-capstone-project-1.git'
+	            git branch: 'develop', url: 'https://github.com/kaustubhmali02/devops-capstone-project-1.git'
 	        }
 	    }
 		stage ("2. Build the docker file") {
