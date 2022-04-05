@@ -1,5 +1,8 @@
 pipeline {
 	agent {label 'Worker-1'}
+	triggers {
+        pollSCM('')
+    }
 	stages {
 	    stage ("1. Git repo") {
 	        steps {
